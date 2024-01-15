@@ -1,0 +1,131 @@
+<mxfile host="app.diagrams.net" modified="2024-01-03T13:04:07.231Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="PkUI6PGa5HwEGFJtZZcr" version="22.1.16" type="device">
+  <diagram name="Page-1" id="u2oBM2LmzSEHa-hEWcnV">
+    <mxGraphModel dx="2954" dy="2277" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-1" value="Folder structure&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;\lib\core&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;\lib\data&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;\lib\data\models&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;\lib\data\repositories&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;\lib\logic&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;\lib\presentation&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="20" y="-230" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-15" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 18px; background-color: rgb(0, 0, 0);&quot;&gt;2&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-13" target="2Q_LZtpWj77hGUXRdT9S-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-13" value="lib\main.dart&lt;br&gt;&lt;br&gt;&lt;ol&gt;&lt;li&gt;uses&amp;nbsp;MultiBlocProvider widget to provide all the cubits to subpages&amp;nbsp;&lt;/li&gt;&lt;li&gt;Provides initial route to navigate to screen (e.g. splash.dart)&lt;/li&gt;&lt;li&gt;also it provides logic for what to do onGenerateroutes&amp;nbsp;&lt;/li&gt;&lt;/ol&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="4" y="-985" width="410" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-14" value="lib\presentation\screens\splash.dart&lt;br&gt;&lt;br&gt;&lt;ol&gt;&lt;li&gt;&amp;nbsp;this is first screen to be shown, which is provided from main.dart initial route.&lt;/li&gt;&lt;li&gt;this screen uses BlocListener widget to listen to particular states and navigate further to other screens.&lt;/li&gt;&lt;li&gt;uses BlocProvider to read state explicitly from required cubit.&lt;/li&gt;&lt;/ol&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="4" y="-795" width="410" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-39" value="consumes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-13" target="2Q_LZtpWj77hGUXRdT9S-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-16" value="lib\core\routes.dart&lt;br&gt;&lt;ol&gt;&lt;li&gt;This returns CupertinoPageRoute onGenerateRoute&lt;/li&gt;&lt;/ol&gt;&lt;div&gt;lib\core\graphql.dart&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;this is a common code of graphql server configuration&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="479" y="-985" width="341" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-19" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="37" y="-585" width="340" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-10" value="" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-19" vertex="1">
+          <mxGeometry width="340" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-6" value="lib\presentation\screens\auth\providers\signin_provider.dart&lt;br&gt;&lt;br&gt;Provider has backend code, which calls cubit business logic" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-19" vertex="1">
+          <mxGeometry x="10" y="110" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="2Q_LZtpWj77hGUXRdT9S-19" source="2Q_LZtpWj77hGUXRdT9S-9" target="2Q_LZtpWj77hGUXRdT9S-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-9" value="lib\presentation\screens\auth\signin_screen.dart" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-19" vertex="1">
+          <mxGeometry x="12" y="30" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-20" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="484" y="-375" width="280" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-12" value="" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-20" vertex="1">
+          <mxGeometry width="280" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-26" value="consumes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="2Q_LZtpWj77hGUXRdT9S-20" source="2Q_LZtpWj77hGUXRdT9S-4" target="2Q_LZtpWj77hGUXRdT9S-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-4" value="lib\data\models\user\user_model.dart" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-20" vertex="1">
+          <mxGeometry x="20" y="128" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-11" value="lib\data\repository\user\user_repository.dart" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-20" vertex="1">
+          <mxGeometry x="20" y="20" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-21" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="484" y="-590" width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-5" value="" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="2Q_LZtpWj77hGUXRdT9S-21" vertex="1">
+          <mxGeometry width="230" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-7" value="lib\logic\cubits\user\user_cubit.dart&lt;br&gt;it emits state, which will be auto consumed by cubit listeners&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" parent="2Q_LZtpWj77hGUXRdT9S-21" vertex="1">
+          <mxGeometry x="10" y="20" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-25" value="consumes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="2Q_LZtpWj77hGUXRdT9S-21" source="2Q_LZtpWj77hGUXRdT9S-8" target="2Q_LZtpWj77hGUXRdT9S-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="2Q_LZtpWj77hGUXRdT9S-21" source="2Q_LZtpWj77hGUXRdT9S-8" target="2Q_LZtpWj77hGUXRdT9S-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-8" value="lib\logic\cubits\user\user_state.dart" style="rounded=1;whiteSpace=wrap;html=1;" parent="2Q_LZtpWj77hGUXRdT9S-21" vertex="1">
+          <mxGeometry x="10" y="110" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-24" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 18px; background-color: rgb(0, 0, 0);&quot;&gt;4&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-6" target="2Q_LZtpWj77hGUXRdT9S-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-22" value="if&amp;nbsp;UserLoggedOutState" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-14" target="2Q_LZtpWj77hGUXRdT9S-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-35" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 18px; background-color: rgb(0, 0, 0);&quot;&gt;3&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="2Q_LZtpWj77hGUXRdT9S-22" vertex="1" connectable="0">
+          <mxGeometry x="-0.5419" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-27" value="calls repository" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-7" target="2Q_LZtpWj77hGUXRdT9S-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="794" y="-555" />
+              <mxPoint x="794" y="-330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-36" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 18px; background-color: rgb(0, 0, 0);&quot;&gt;5&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="2Q_LZtpWj77hGUXRdT9S-27" vertex="1" connectable="0">
+          <mxGeometry x="-0.2718" y="3" relative="1" as="geometry">
+            <mxPoint x="-3" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-29" value="consume endpoints, graphql, database&lt;br&gt;config" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-16" target="2Q_LZtpWj77hGUXRdT9S-11" edge="1">
+          <mxGeometry x="-0.4139" y="-100" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="-925" />
+              <mxPoint x="830" y="-285" />
+              <mxPoint x="684" y="-285" />
+            </Array>
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-31" value="call database" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-30" target="2Q_LZtpWj77hGUXRdT9S-12" edge="1">
+          <mxGeometry x="-0.4545" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-37" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 18px; background-color: rgb(0, 0, 0);&quot;&gt;6&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="2Q_LZtpWj77hGUXRdT9S-31" vertex="1" connectable="0">
+          <mxGeometry x="0.2978" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-30" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="594" y="-94" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-33" value="&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 18px; background-color: rgb(0, 0, 0);&quot;&gt;1&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2Q_LZtpWj77hGUXRdT9S-32" target="2Q_LZtpWj77hGUXRdT9S-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2Q_LZtpWj77hGUXRdT9S-32" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="194" y="-1090" width="30" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

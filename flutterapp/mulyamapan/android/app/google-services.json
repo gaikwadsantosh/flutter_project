@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "128600715616",
+    "firebase_url": "https://santosh-flutter-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "santosh-flutter-app",
+    "storage_bucket": "santosh-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128600715616:android:9b4d64b8062b1b3bbf2e05",
+        "android_client_info": {
+          "package_name": "com.example.mulyankan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkmgc0fwia1B3G6_rboBVX5RBTha4RWsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDUTOAr6Vc3l9DZ-8R1wAvXH1H0dQYD-6A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>128600715616</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.mulyankan</string>
+	<key>PROJECT_ID</key>
+	<string>santosh-flutter-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>santosh-flutter-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:128600715616:ios:5d27913d5ac28f49bf2e05</string>
+	<key>DATABASE_URL</key>
+	<string>https://santosh-flutter-app-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>

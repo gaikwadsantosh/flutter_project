@@ -1,0 +1,26 @@
+[
+  {
+    "Master_RowNumber": 1,
+    "Category": "Health",
+    "SubCategory": "Ayurvedic and Homeopathic",
+    "ProductTitle": "Ayurvedic and Homeopathic care"
+  },
+  {
+    "Master_RowNumber": 2,
+    "Category": "Electronics",
+    "SubCategory": "Smartphones",
+    "ProductTitle": "Samsung Galaxy S21"
+  },
+  {
+    "Master_RowNumber": 3,
+    "Category": "Books",
+    "SubCategory": "Fiction",
+    "ProductTitle": "Harry Potter and the Sorcerer's Stone"
+  },
+  {
+    "Master_RowNumber": 4,
+    "Category": "Furniture",
+    "SubCategory": "Living Room",
+    "ProductTitle": "Sofa Sets"
+  }
+]

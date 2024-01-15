@@ -1,0 +1,162 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mulyankan/logic/cubits/user_cubit/user_cubit.dart';
+import 'package:mulyankan/logic/services/preferences.dart';
+import 'package:mulyankan/presentation/screens/auth/providers/login_provider.dart';
+import 'package:mulyankan/presentation/screens/auth/providers/signup_provider.dart';
+import 'package:mulyankan/presentation/screens/auth/signin.screen.dart';
+import 'package:mulyankan/presentation/screens/home/category_screen.dart';
+import 'package:mulyankan/presentation/screens/home/home_comparison_screen.dart';
+import 'package:mulyankan/presentation/screens/home/profile_screen.dart';
+import 'package:mulyankan/presentation/screens/home/providers/profile_provider.dart';
+import 'package:mulyankan/presentation/screens/home/user_feed_screen.dart';
+import 'package:mulyankan/presentation/screens/widgets/menubar_widget.dart';
+import 'package:mulyankan/presentation/screens/widgets/searchbox_widget.dart';
+import 'package:provider/provider.dart';
+
+class HomeScreen extends StatefulWidget {
+  final Function(int) onMenuItemTap;
+  const HomeScreen({super.key, required this.onMenuItemTap});
+  static const String routeName = "Home";
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0;
+  bool isSubMenuOpen = false;
+  bool _showPanel = false;
+
+  List<Widget> screens = [
+    const HomeComparisonScreen(),
+    const UserFeedScreen(),
+    const CategoryScreen(),
+//    ChangeNotifierProvider(
+//        create: (context) => ProfileProvider(context),
+//        child: const ProfileScreen()),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+      if (index == 3) {
+        currentIndex =
+            0; // when user navigates back from profile, he should land on home
+        Navigator.pushNamed(context, ProfileScreen.routeName);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //AppBar of scaffold
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            // Logo with fixed size
+            CupertinoButton(
+              onPressed: () {
+                Navigator.popUntil(context, (route) => false);
+                Navigator.pushNamed(context, HomeScreen.routeName);
+              },
+              child: Image.asset('lib/assets/images/mulyankan_logo.jpg',
+                  width: 35, height: 35),
+            ),
+
+            // Search text with icons and camera + mic buttons (closer spaced)
+            const Flexible(
+              child: SearchBoxWidget(
+                hintText: "Search products ..",
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: PopupMenuButton<String>(
+                    icon: const Row(
+                      children: [
+                        Icon(Icons.person),
+                      ],
+                    ),
+                    offset: const Offset(0, 40),
+                    onSelected: (value) {
+                      switch (value) {
+                        case "Logout":
+                          context.read<UserCubit>().singOut();
+                          Navigator.popUntil(context, (route) => false);
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                          break;
+                        default:
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        value: 'Logout',
+                        child: Text('Logout'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      //Body of scaffold
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                //add space
+                const SizedBox(
+                  height: 2,
+                ),
+
+                // Menu bar strip
+                const MenuBarWidget(),
+
+                //child screens
+                Expanded(
+                  child: screens[currentIndex],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      //BottomNavigationBar of scaffold
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.feed),
+            label: 'Feed',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Category',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: currentIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+      ),
+    );
+  }
+}

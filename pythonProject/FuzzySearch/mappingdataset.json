@@ -1,0 +1,18 @@
+[
+    {
+        "Mapping_id": 1,
+        "Master_Product_Id": 1,
+        "Master_Product_Name": "Ayurvedic and Homeopathic care",
+        "Reference_DataSet_Id": 541,
+        "Reference_DataSet_Type": "Amazon",
+        "PercentageMatch": 100
+    },
+    {
+        "Mapping_id": 2,
+        "Master_Product_Id": 4,
+        "Master_Product_Name": "Sofa Sets",
+        "Reference_DataSet_Id": 542,
+        "Reference_DataSet_Type": "Amazon",
+        "PercentageMatch": 100
+    }
+]

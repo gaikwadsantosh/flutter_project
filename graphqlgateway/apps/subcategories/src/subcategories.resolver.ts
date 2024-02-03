@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent, ResolveRefe
 import { SubcategoriesService } from './subcategories.service';
 import { Subcategory } from './entities/subcategory.entity';
 import { CreateSubcategoryInput } from './dto/create-subcategory.input';
-import { UpdateSubcategoryInput } from './dto/update-subcategory.input';
 import { Category } from './entities/category.entity';
 
 @Resolver(() => Subcategory)

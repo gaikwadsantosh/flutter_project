@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int, Directive, ID } from '@nestjs/graphql';
-import { Column, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
+import { Column, Double, Entity, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 import { Subcategory } from './subcategory.entity';
 
 @ObjectType()
@@ -37,7 +37,23 @@ export class Product {
   @Field({ nullable: true })
   subCategoryId: string;
 
+  @Column()
+  @Field({ nullable: true })
+  featured: boolean;
+
+  @Column()
+  @Field({ nullable: true })
+  price: number;
+
+  @Column()
+  @Field({ nullable: true })
+  averageReview: number;
+
+  @Column()
+  @Field({ nullable: true })
+  newArrivals: boolean;
+
   @Field(() => Subcategory, { nullable: true })
   subcategory?: Subcategory;
- 
+   
 }

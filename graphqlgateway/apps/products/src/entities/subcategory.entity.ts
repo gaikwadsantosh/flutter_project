@@ -9,4 +9,6 @@ export class Subcategory {
 
   @Field(() => [Product], { nullable: true })
   products?: Product[];
+
+  
 }

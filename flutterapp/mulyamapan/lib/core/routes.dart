@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:mulyankan/data/models/product/product_model.dart';
 import 'package:mulyankan/data/models/product/product_search_input_model.dart';
@@ -10,9 +8,9 @@ import 'package:mulyankan/presentation/screens/auth/signup.screen.dart';
 import 'package:mulyankan/presentation/screens/home/home_screen.dart';
 import 'package:mulyankan/presentation/screens/home/profile_screen.dart';
 import 'package:mulyankan/presentation/screens/home/providers/profile_provider.dart';
-import 'package:mulyankan/presentation/screens/home/user_feed_screen.dart';
 import 'package:mulyankan/presentation/screens/product/product_detail_screen.dart';
 import 'package:mulyankan/presentation/screens/product/product_search_screen.dart';
+import 'package:mulyankan/presentation/screens/product/providers/product_search_provider.dart';
 import 'package:mulyankan/presentation/screens/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -55,10 +53,15 @@ class Routes {
                 ));
       case ProductSearchScreen.routeName:
         return CupertinoPageRoute(
-            builder: (context) => ProductSearchScreen(
-                  productSearchInputModel:
-                      settings.arguments as ProductSearchInputModel,
-                ));
+            builder: (context) => MultiProvider(
+                    providers: [
+                      ChangeNotifierProvider(
+                          create: (context) => ProductSearchProvider(context)),
+                    ],
+                    child: ProductSearchScreen(
+                      productSearchInputModel:
+                          settings.arguments as ProductSearchInputModel,
+                    )));
       default:
         return null;
     }

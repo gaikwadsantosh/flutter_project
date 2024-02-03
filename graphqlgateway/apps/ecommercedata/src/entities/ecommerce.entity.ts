@@ -43,4 +43,21 @@ export class ecommercedata {
   @Column()
   @Field()
   eCommerceSite:string;
+
+  @Column()
+  @Field({ nullable: true })
+  featured: boolean;
+
+  @Column()
+  @Field({ nullable: true })
+  price: number;
+
+  @Column()
+  @Field({ nullable: true })
+  newArrivals: boolean;
+
+  @Column()
+  @Field({ nullable: true })
+  averageReview: number;
+  
 }

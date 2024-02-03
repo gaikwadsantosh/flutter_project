@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mulyankan/data/models/user/user_model.dart';
 import 'package:mulyankan/data/repositories/user_repository.dart';
@@ -61,7 +60,7 @@ class UserCubit extends Cubit<UserState> {
     print("user cubit : update profile called");
     //emit(UserInitialState());
     try {
-      String saveResult = await _userRepository.saveProfile(userModel);
+      await _userRepository.saveProfile(userModel);
       emit(UserLoggedInState(userModel));
     } catch (ex) {
       emit(UserErrorState(ex.toString()));
@@ -75,17 +74,17 @@ class UserCubit extends Cubit<UserState> {
     //print("user cubit called : google sign in");
     emit(UserLoadingState());
     try {
-      UserModel userModel = UserModel(
-          email: email,
-          password: "",
-          fullName: fullName,
-          phoneNumber: phoneNumber);
       //check if email alreay exists, then skip else save profile.
-      //if(!FoundEmailInDB){
-      //saveProfile(userModel);
-      //}else{
-      //userModel = queryProfile(userModel);
-      //}
+      UserModel userModel;
+      userModel = await _userRepository.signIn(email: email, password: "");
+      if (userModel == null) {
+        userModel = UserModel(
+            email: email,
+            password: "",
+            fullName: fullName,
+            phoneNumber: phoneNumber);
+        saveProfile(userModel);
+      }
       _emitLoggedInState(userModel: userModel, email: email, password: "");
     } catch (ex) {
       emit(UserErrorState(ex.toString()));

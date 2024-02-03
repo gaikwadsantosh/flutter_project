@@ -57,8 +57,9 @@ class _CarouselWidgetState extends State<CarouselWidget> {
             options: CarouselOptions(
               scrollPhysics: const BouncingScrollPhysics(),
               autoPlay: true,
-              aspectRatio: 4,
-              viewportFraction: 1,
+              autoPlayInterval: const Duration(seconds: 5),
+              aspectRatio: 8,
+              viewportFraction: 0.75,
               onPageChanged: (index, reason) {
                 setState(() {
                   currentIndex = index;

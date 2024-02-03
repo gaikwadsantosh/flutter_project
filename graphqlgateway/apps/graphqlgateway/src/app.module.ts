@@ -34,6 +34,10 @@ import { authContext } from './auth.context';
               name:'users',
               url:'http://localhost:3007/graphql', 
             },
+            {
+              name:'budgetrange',
+              url:'http://localhost:3008/graphql', 
+            },
           ]
         }),
         buildService({url}){

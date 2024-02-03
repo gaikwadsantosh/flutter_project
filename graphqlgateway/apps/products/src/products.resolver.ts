@@ -4,10 +4,17 @@ import { Product } from './entities/product.entity';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { Subcategory } from './entities/subcategory.entity';
+import { log } from 'console';
+import { SortInput } from './entities/sortinput.model';
+import { ProductSortBy } from './entities/productsortby.entity';
+import { SortOrder } from './entities/sortorder.enum';
+import { FilterProductInput } from './dto/filter-product.input';
 
 @Resolver(() => Product)
 export class ProductsResolver {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService
+    ) {}
 
   @Mutation(() => Product)
   createProduct(@Args('createProductInput') createProductInput: CreateProductInput) {
@@ -15,8 +22,11 @@ export class ProductsResolver {
   }
 
   @Query(() => [Product], { name: 'products' })
-  findAll() {
-    return this.productsService.findAll();
+  findAll(
+    @Args('sortBy', { nullable: true }) sortBy: SortInput, 
+    @Args('filterBy', { nullable: true }) filterBy: FilterProductInput,
+  ) {
+    return this.productsService.findAll(sortBy, filterBy);
   }
 
   @Query(() => [Product], { name: 'productsByName' })
@@ -34,7 +44,14 @@ export class ProductsResolver {
     console.warn("ResolveField in product resolver for subcategory field");
     return { __typename: 'Subcategory', id: product.subCategoryId};
   }  
-/*
+
+  @Query(() => [ProductSortBy], { name: 'productsSortBy' })
+  productsSortBy() {
+    log("esolver called");
+    return this.productsService.productSortBy();
+  }
+
+  /*
   @Mutation(() => Product)
   updateProduct(@Args('updateProductInput') updateProductInput: UpdateProductInput) {
     return this.productsService.update(updateProductInput.id, updateProductInput);

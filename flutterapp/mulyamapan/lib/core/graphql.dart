@@ -1,7 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:graphql/client.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert'; // for utf8.decode
 
 class GraphQLConfig {
   static final HttpLink httpLink = HttpLink(
@@ -20,10 +19,12 @@ class GraphQLConfig {
     return _client;
   }
 
-  static Future<QueryResult> performQuery(String query) async {
+  static Future<QueryResult> performQuery(String query,
+      {Map<String, dynamic>? variables}) async {
     //print(query);
     final options = QueryOptions(
       document: gql(query),
+      variables: variables ?? {},
     );
 
     try {

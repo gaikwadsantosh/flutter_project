@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mulyankan/core/ui.dart';
 import 'package:mulyankan/presentation/screens/widgets/gap_widget.dart';
 
 class ServiceProvidersLogoWidget extends StatelessWidget {

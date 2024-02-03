@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/apollo';
+import { ProductSortBy } from './entities/productsortby.entity';
 
 @Module({
   imports:[
@@ -14,10 +15,12 @@ import { ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/ap
       url:'mongodb://localhost/mulyamapan',
       synchronize: true,
       entities:[
-        Product
+        Product,
+        ProductSortBy
       ]
     }),
     TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([ProductSortBy]),
       GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       autoSchemaFile:{

@@ -4,6 +4,7 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { FindOneOptions, Repository } from 'typeorm';
+import { log } from 'console';
 
 @Injectable()
 export class UsersService {
@@ -49,16 +50,10 @@ export class UsersService {
   }
 
   signIn(email: string, password: string) {
-    return this.userRepository.findOneBy({"email": email, "password": password})
+    if(password!=""){
+      return this.userRepository.findOneBy({"email": email, "password": password});
+    }else{
+      return this.userRepository.findOneBy({"email": email});
+    }
   }
-
-  /*
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
-*/  
 }

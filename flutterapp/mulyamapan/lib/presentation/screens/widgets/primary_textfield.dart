@@ -22,7 +22,7 @@ class PrimaryTextField extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(7)),
+          //border: OutlineInputBorder(borderRadius: BorderRadius.circular(7)),
           labelText: labelText,
           labelStyle: TextStyle(
             fontStyle: FontStyle.italic,

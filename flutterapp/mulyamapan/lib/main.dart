@@ -7,6 +7,7 @@ import 'package:mulyankan/core/ui.dart';
 import 'package:mulyankan/firebase_options.dart';
 import 'package:mulyankan/logic/cubits/category_cubit/category_cubit.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_cubit.dart';
+import 'package:mulyankan/logic/cubits/subcategory_cubit/subcategory_cubit.dart';
 import 'package:mulyankan/logic/cubits/user_cubit/user_cubit.dart';
 import 'package:mulyankan/presentation/screens/auth/signin.screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => CategoryCubit()),
         BlocProvider(create: (context) => ProductCubit()),
-        //BlocProvider(create: (context) => ProfileProvider(context))
+        BlocProvider(create: (context) => SubCategoryCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

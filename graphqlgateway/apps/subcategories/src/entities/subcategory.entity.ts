@@ -26,5 +26,5 @@ export class Subcategory {
   categoryId: string;
 
   @Field(() => Category, { nullable: true })
-  category?: Category;  
+  category?: Category;
 }

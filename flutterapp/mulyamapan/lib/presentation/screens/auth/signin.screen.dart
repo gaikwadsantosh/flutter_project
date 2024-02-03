@@ -33,7 +33,7 @@ class SignInScreenState extends State<SignInScreen> {
   void initState() {
     super.initState();
 
-    final userDetails = Preferences.fetchUserDetails().then((value) {
+    Preferences.fetchUserDetails().then((value) {
       String email = value['email'] ?? "";
       String password = value['password'] ?? "";
       if (email != null || password != null) {
@@ -83,7 +83,7 @@ class SignInScreenState extends State<SignInScreen> {
               ]),
               Text(
                 "Sign in",
-                style: TextStyles.heading2,
+                style: TextStyles.heading3,
               ),
               const GapWidget(),
               (provider.error != "")
@@ -138,7 +138,6 @@ class SignInScreenState extends State<SignInScreen> {
                 children: [
                   const Text(
                     "Dont have an account?",
-                    style: TextStyle(fontSize: 16),
                   ),
                   const GapWidget(),
                   LinkButton(

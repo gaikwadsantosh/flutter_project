@@ -63,6 +63,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/users/tsconfig.app.json"
       }
+    },
+    "budgetrange": {
+      "type": "application",
+      "root": "apps/budgetrange",
+      "entryFile": "main",
+      "sourceRoot": "apps/budgetrange/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/budgetrange/tsconfig.app.json"
+      }
     }
   }
 }

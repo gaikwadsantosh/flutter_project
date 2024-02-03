@@ -29,4 +29,15 @@ export class createECommerceDataInput {
   @Field()
   eCommerceSite:string;
 
+  @Field({ nullable: true })
+  featured: boolean;
+
+  @Field({ nullable: true })
+  price: number;
+
+  @Field({ nullable: true })
+  newArrivals: boolean;
+
+  @Field({ nullable: true })
+  averageReview: number;  
 }

@@ -9,7 +9,9 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SearchBoxWidget extends StatefulWidget {
   final String hintText;
-  const SearchBoxWidget({super.key, required this.hintText});
+  bool showDrawer = false;
+
+  SearchBoxWidget({super.key, required this.hintText, this.showDrawer = false});
 
   @override
   State<SearchBoxWidget> createState() => _SearchBoxWidgetState();
@@ -60,6 +62,14 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
               focusNode: focusNode,
               decoration: InputDecoration(
                 hintText: widget.hintText,
+                prefixIcon: widget.showDrawer
+                    ? IconButton(
+                        icon: Icon(Icons.menu),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                      )
+                    : null,
                 suffixIcon: IconButton(
                   icon: Icon(Icons.mic),
                   onPressed: () {

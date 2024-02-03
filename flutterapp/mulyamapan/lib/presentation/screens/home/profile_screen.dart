@@ -27,91 +27,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
       listener: (context, state) {},
       child: Scaffold(
         appBar: AppBar(
-            title: const Row(
+            title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
               Expanded(
                 child: SearchBoxWidget(
                   hintText: "Search Products ...",
+                  showDrawer: false,
                 ),
               ),
             ])),
         body: SafeArea(
           child: Form(
               key: provider.formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const GapWidget(),
-                    const Text(
-                      "Your Profile ",
-                      style: TextStyle(fontSize: 25),
-                    ),
-                    const GapWidget(),
-                    PrimaryTextField(
-                        labelText: "Full Name",
-                        controller: provider.fullNameController,
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const GapWidget(),
+                      const Text(
+                        "Your Profile ",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      const GapWidget(),
+                      PrimaryTextField(
+                          labelText: "Full Name",
+                          controller: provider.fullNameController,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return "please enter full name";
+                            }
+                            return null;
+                          }),
+                      const GapWidget(),
+                      //Address
+                      PrimaryTextField(
+                        labelText: "Address",
+                        controller: provider.addressController,
+                      ),
+                      const GapWidget(),
+                      //State
+                      PrimaryTextField(
+                        labelText: "State",
+                        controller: provider.stateController,
+                      ),
+                      const GapWidget(),
+                      //City
+                      PrimaryTextField(
+                        labelText: "City",
+                        controller: provider.cityController,
+                      ),
+                      const GapWidget(),
+                      //Mobile
+                      PrimaryTextField(
+                        labelText: "Mobile",
+                        controller: provider.moibileController,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return "please enter full name";
+                            return "please enter contact number";
+                          }
+                          RegExp regExp = RegExp(r'^[0-9]{10}$');
+                          if (!regExp.hasMatch(value ?? '')) {
+                            return "please enter valid mobile number";
                           }
                           return null;
-                        }),
-                    const GapWidget(),
-                    //Address
-                    PrimaryTextField(
-                      labelText: "Address",
-                      controller: provider.addressController,
-                    ),
-                    const GapWidget(),
-                    //State
-                    PrimaryTextField(
-                      labelText: "State",
-                      controller: provider.stateController,
-                    ),
-                    const GapWidget(),
-                    //City
-                    PrimaryTextField(
-                      labelText: "City",
-                      controller: provider.cityController,
-                    ),
-                    const GapWidget(),
-                    //Mobile
-                    PrimaryTextField(
-                      labelText: "Mobile",
-                      controller: provider.moibileController,
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return "please enter full name";
-                        }
-                        RegExp regExp = RegExp(r'^[0-9]{10}$');
-                        if (!regExp.hasMatch(value ?? '')) {
-                          return "please enter valid mobile number";
-                        }
-                        return null;
-                      },
-                    ),
-                    const GapWidget(),
-                    //Email
-                    PrimaryTextField(
-                      labelText: "email",
-                      controller: provider.emailController,
-                      enabledText: false,
-                    ),
-                    const GapWidget(),
-                    // Buttons
-                    PrimaryButton(
-                      onPressed: provider.saveProfile,
-                      text: ' Save',
-                      iconData: FontAwesomeIcons.floppyDisk,
-                    ),
-                    const GapWidget(),
-                    Text(
-                      provider.ResultText,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
+                        },
+                      ),
+                      const GapWidget(),
+                      //Email
+                      PrimaryTextField(
+                        labelText: "email",
+                        controller: provider.emailController,
+                        enabledText: false,
+                      ),
+                      const GapWidget(),
+                      // Buttons
+                      PrimaryButton(
+                        onPressed: provider.saveProfile,
+                        text: ' Save',
+                        iconData: FontAwesomeIcons.floppyDisk,
+                      ),
+                      const GapWidget(),
+                      Text(
+                        provider.ResultText,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
                 ),
               )
               //FullName

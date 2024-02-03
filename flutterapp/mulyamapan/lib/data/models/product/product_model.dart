@@ -6,6 +6,10 @@ class ProductModel {
   String? priceDiscount;
   String? dealMessage;
   String? subCategoryId;
+  bool? featured;
+  double? price;
+  bool? newArrivals;
+  double? averageReview;
 
   ProductModel(
       {this.id,
@@ -24,6 +28,10 @@ class ProductModel {
     priceDiscount = json['PriceDiscount'];
     dealMessage = json['DealMessage'];
     subCategoryId = json['subCategoryId'];
+    featured = json['featured'];
+    price = json['price'].toDouble();
+    newArrivals = json['newArrivals'];
+    averageReview = json['averageReview'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +43,10 @@ class ProductModel {
     data['PriceDiscount'] = this.priceDiscount;
     data['DealMessage'] = this.dealMessage;
     data['subCategoryId'] = this.subCategoryId;
+    data['featured'] = this.featured;
+    data['price'] = this.price;
+    data['newArrivals'] = this.newArrivals;
+    data['averageReview'] = this.averageReview;
     return data;
   }
 }

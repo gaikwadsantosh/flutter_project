@@ -1,36 +1,44 @@
 import 'package:mulyankan/data/models/product/product_model.dart';
+import 'package:mulyankan/data/models/product/product_sort_by_model.dart';
 
 abstract class ProductState {
   final List<ProductModel> products;
   final List<ProductModel> productsSearched;
-  ProductState(this.products, this.productsSearched);
+  final List<ProductsSortByModel> productSortBy;
+  ProductState(this.products, this.productsSearched, this.productSortBy);
 }
 
 class ProductInitialState extends ProductState {
-  ProductInitialState() : super([], []);
+  ProductInitialState() : super([], [], []);
 }
 
 class ProductLoadingState extends ProductState {
-  ProductLoadingState(super.products, super.productsSearched);
+  ProductLoadingState(
+      super.products, super.productsSearched, super.productSortBy);
 }
 
 class ProductLoadedState extends ProductState {
-  ProductLoadedState(super.products, super.productsSearched);
+  ProductLoadedState(
+      super.products, super.productsSearched, super.productSortBy);
 }
 
 class ProductErrorState extends ProductState {
   final String message;
-  ProductErrorState(this.message, super.products, super.productsSearched);
+  ProductErrorState(this.message, super.products, super.productsSearched,
+      super.productSortBy);
 }
 
 class ProductSearchingState extends ProductState {
-  ProductSearchingState(super.products, super.productsSearched);
+  ProductSearchingState(
+      super.products, super.productsSearched, super.productSortBy);
 }
 
 class ProductSearchedState extends ProductState {
-  ProductSearchedState(super.products, super.productsSearched);
+  ProductSearchedState(
+      super.products, super.productsSearched, super.productSortBy);
 }
 
 class ProductSearchLoadingState extends ProductState {
-  ProductSearchLoadingState(super.products, super.productsSearched);
+  ProductSearchLoadingState(
+      super.products, super.productsSearched, super.productSortBy);
 }

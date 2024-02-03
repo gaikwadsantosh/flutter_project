@@ -45,4 +45,10 @@ class TextStyles {
 
   static TextStyle body2 = TextStyle(
       fontWeight: FontWeight.normal, color: AppColors.text, fontSize: 16);
+
+  static TextStyle body3 = TextStyle(
+      fontWeight: FontWeight.normal, color: AppColors.text, fontSize: 14);
+
+  static TextStyle boldBody3 = TextStyle(
+      fontWeight: FontWeight.bold, color: AppColors.text, fontSize: 14);
 }

@@ -1,0 +1,40 @@
+# Node.js
+node_modules/
+
+# NestJS Output
+dist/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Dependencies
+package-lock.json
+yarn.lock
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Thumbnails
+Thumbs.db
+
+# NestJS temporary files
+.nest/
+
+# JetBrains IDEs
+.idea/
+
+# Temporary files
+*.swp
+*.swo
+
+# NestJS coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo

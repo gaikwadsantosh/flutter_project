@@ -2,15 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mulyankan/logic/cubits/user_cubit/user_cubit.dart';
-import 'package:mulyankan/logic/services/preferences.dart';
-import 'package:mulyankan/presentation/screens/auth/providers/login_provider.dart';
-import 'package:mulyankan/presentation/screens/auth/providers/signup_provider.dart';
 import 'package:mulyankan/presentation/screens/auth/signin.screen.dart';
 import 'package:mulyankan/presentation/screens/home/category_screen.dart';
 import 'package:mulyankan/presentation/screens/home/home_comparison_screen.dart';
 import 'package:mulyankan/presentation/screens/home/profile_screen.dart';
-import 'package:mulyankan/presentation/screens/home/providers/profile_provider.dart';
 import 'package:mulyankan/presentation/screens/home/user_feed_screen.dart';
+import 'package:mulyankan/presentation/screens/widgets/carousel_widget.dart';
 import 'package:mulyankan/presentation/screens/widgets/menubar_widget.dart';
 import 'package:mulyankan/presentation/screens/widgets/searchbox_widget.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +24,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   bool isSubMenuOpen = false;
-  bool _showPanel = false;
 
   List<Widget> screens = [
     const HomeComparisonScreen(),
@@ -54,8 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       //AppBar of scaffold
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
             // Logo with fixed size
@@ -69,9 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // Search text with icons and camera + mic buttons (closer spaced)
-            const Flexible(
+            Flexible(
               child: SearchBoxWidget(
                 hintText: "Search products ..",
+                showDrawer: true,
               ),
             ),
             Column(
@@ -110,25 +108,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       //Body of scaffold
+      drawer: MyDrawer(),
       body: Stack(
         children: [
-          Center(
-            child: Column(
-              children: [
-                //add space
-                const SizedBox(
-                  height: 2,
-                ),
+          Column(
+            children: [
+              //add space
+              const SizedBox(
+                height: 2,
+              ),
 
-                // Menu bar strip
-                const MenuBarWidget(),
-
-                //child screens
-                Expanded(
-                  child: screens[currentIndex],
-                ),
-              ],
-            ),
+              Expanded(
+                child: screens[currentIndex],
+              ),
+            ],
           ),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mulyankan/core/ui.dart';
 import 'package:mulyankan/data/models/product/product_model.dart';
 import 'package:mulyankan/presentation/screens/widgets/gap_widget.dart';

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 import 'package:mulyankan/logic/cubits/user_cubit/user_cubit.dart';
 import 'package:mulyankan/presentation/screens/auth/signin.screen.dart';
 import 'package:mulyankan/presentation/screens/home/category_screen.dart';
 import 'package:mulyankan/presentation/screens/home/home_comparison_screen.dart';
 import 'package:mulyankan/presentation/screens/home/profile_screen.dart';
 import 'package:mulyankan/presentation/screens/home/user_feed_screen.dart';
+import 'package:mulyankan/presentation/screens/product/providers/product_search_provider.dart';
 import 'package:mulyankan/presentation/screens/widgets/carousel_widget.dart';
 import 'package:mulyankan/presentation/screens/widgets/menubar_widget.dart';
 import 'package:mulyankan/presentation/screens/widgets/searchbox_widget.dart';
@@ -14,7 +16,14 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(int) onMenuItemTap;
-  const HomeScreen({super.key, required this.onMenuItemTap});
+  final BuildContext context;
+  final ProductSearchProvider productSearchProvider;
+
+  const HomeScreen(
+      {super.key,
+      required this.onMenuItemTap,
+      required this.context,
+      required this.productSearchProvider});
   static const String routeName = "Home";
 
   @override
@@ -24,6 +33,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   bool isSubMenuOpen = false;
+
+  @override
+  void initState() {
+    //var productSearchProvider = context.read<ProductSearchProvider>();
+    widget.productSearchProvider.getFilteredSortedProducts(null);
+    super.initState();
+  }
 
   List<Widget> screens = [
     const HomeComparisonScreen(),
@@ -47,6 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productsFilterSortByModel =
+        context.watch<ProductsFilterSortByModel>();
+
     return Scaffold(
       //AppBar of scaffold
       appBar: AppBar(
@@ -68,8 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
             // Search text with icons and camera + mic buttons (closer spaced)
             Flexible(
               child: SearchBoxWidget(
+                productSearchProvider: widget.productSearchProvider,
+                productsFilterSortByModel: productsFilterSortByModel,
                 hintText: "Search products ..",
                 showDrawer: true,
+                searchBoxController: TextEditingController(),
               ),
             ),
             Column(

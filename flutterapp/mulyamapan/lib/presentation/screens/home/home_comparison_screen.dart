@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mulyankan/core/ui.dart';
 import 'package:mulyankan/core/utils.dart';
-import 'package:mulyankan/data/models/product/product_search_input_model.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_cubit.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_state.dart';
 import 'package:mulyankan/logic/cubits/subcategory_cubit/sub_category_state.dart';
@@ -126,9 +126,9 @@ class _HomeComparisonScreenState extends State<HomeComparisonScreen> {
                 child: CupertinoButton(
                   onPressed: () {
                     Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                        arguments: ProductSearchInputModel(
-                            categoryName: "eCommerce",
-                            searchType: "Product List"));
+                        arguments: ProductsFilterSortByModel(
+                          subCategoryName: "eCommerce",
+                        ));
                   },
                   child: ServiceProvidersLogoWidget(
                     title: "eCommerce",
@@ -191,9 +191,9 @@ class _HomeComparisonScreenState extends State<HomeComparisonScreen> {
                 child: CupertinoButton(
                   onPressed: () {
                     Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                        arguments: ProductSearchInputModel(
-                            categoryName: "eCommerce",
-                            searchType: "Product Deals"));
+                        arguments: ProductsFilterSortByModel(
+                          subCategoryName: "eCommerce",
+                        ));
                   },
                   child: ServiceProvidersLogoWidget(
                     title: "eCommerce",
@@ -426,16 +426,16 @@ class _HomeComparisonScreenState extends State<HomeComparisonScreen> {
                                           Navigator.pushNamed(
                                             context,
                                             ProductSearchScreen.routeName,
-                                            arguments: ProductSearchInputModel(
-                                                categoryName: "eCommerce",
-                                                searchType: "Product List",
+                                            arguments: ProductsFilterSortByModel(
                                                 subCategoryName: subcategory
                                                         .subcategoryName ??
                                                     '',
-                                                fromRange:
-                                                    budgetrange.fromRange ?? 0,
-                                                toRange:
-                                                    budgetrange.toRange ?? 0),
+                                                priceFrom: budgetrange
+                                                    .fromRange!
+                                                    .toDouble(),
+                                                priceTo: budgetrange.toRange!
+                                                    .toDouble(),
+                                                subCategoryId: subcategory.id),
                                           );
                                         },
                                       )),

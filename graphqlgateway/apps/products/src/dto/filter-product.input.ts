@@ -1,8 +1,9 @@
 import { InputType, Int, Field, ID } from '@nestjs/graphql';
+import { Column, Double } from 'typeorm';
 
 @InputType()
 export class FilterProductInput {
-  @Field()
+  @Field({ nullable: true })
   subCategoryId: string;
 
   @Field({ nullable: true })
@@ -15,5 +16,14 @@ export class FilterProductInput {
   averageReview: number;  
 
   @Field({ nullable: true })
-  cashOnDelivery: boolean;  
+  payOnDelivery: boolean;  
+
+  @Field({ nullable: true })
+  newArrivals: boolean;  
+  
+  @Field({ nullable: true })
+  featured: boolean;  
+
+  @Field({ nullable: true })
+  productNameSearchTerm: string;  
 }

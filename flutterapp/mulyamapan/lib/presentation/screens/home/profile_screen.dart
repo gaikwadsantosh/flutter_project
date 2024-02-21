@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 import 'package:mulyankan/logic/cubits/user_cubit/user_cubit.dart';
 import 'package:mulyankan/logic/cubits/user_cubit/user_state.dart';
 import 'package:mulyankan/presentation/screens/home/providers/profile_provider.dart';
+import 'package:mulyankan/presentation/screens/product/providers/product_search_provider.dart';
 import 'package:mulyankan/presentation/screens/widgets/gap_widget.dart';
 import 'package:mulyankan/presentation/screens/widgets/primary_button.dart';
 import 'package:mulyankan/presentation/screens/widgets/primary_textfield.dart';
@@ -13,7 +15,8 @@ import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = "profile";
-  const ProfileScreen({super.key});
+  final ProductSearchProvider productSearchProvider;
+  const ProfileScreen({super.key, required this.productSearchProvider});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -21,8 +24,21 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    super.initState();
+    widget.productSearchProvider.getFilteredSortedProducts(null);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProfileProvider>(context);
+    final SearchBoxWidget searchBoxWidget = SearchBoxWidget(
+      productSearchProvider: widget.productSearchProvider,
+      productsFilterSortByModel: ProductsFilterSortByModel(),
+      hintText: "Search Products ...",
+      searchBoxController: TextEditingController(),
+    );
+
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) {},
       child: Scaffold(
@@ -32,10 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
               Expanded(
-                child: SearchBoxWidget(
-                  hintText: "Search Products ...",
-                  showDrawer: false,
-                ),
+                child: searchBoxWidget,
               ),
             ])),
         body: SafeArea(

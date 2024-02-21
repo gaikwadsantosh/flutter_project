@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mulyankan/data/models/product/product_search_input_model.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 import 'package:mulyankan/logic/cubits/user_cubit/user_cubit.dart';
 import 'package:mulyankan/presentation/screens/auth/signin.screen.dart';
 import 'package:mulyankan/presentation/screens/home/profile_screen.dart';
@@ -26,8 +26,9 @@ class MenuBarWidget extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                  arguments:
-                      ProductSearchInputModel(subCategoryName: "Mobile"));
+                  arguments: ProductsFilterSortByModel(
+                      subCategoryName: "Mobile",
+                      productNameSearchTerm: "Mobile"));
             }),
         CupertinoButton(
             child: Column(
@@ -39,7 +40,8 @@ class MenuBarWidget extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                  arguments: ProductSearchInputModel(subCategoryName: "TV"));
+                  arguments: ProductsFilterSortByModel(
+                      subCategoryName: "TV", productNameSearchTerm: "TV"));
             }),
       ],
     );
@@ -82,8 +84,8 @@ class MyDrawer extends StatelessWidget {
               // Add your logic for Option 2
               //Navigator.pop(context);
               Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                  arguments: ProductSearchInputModel(
-                      searchType: "ecommerce", categoryName: "deals"));
+                  arguments:
+                      ProductsFilterSortByModel(subCategoryName: "deals"));
             },
           ),
           ListTile(

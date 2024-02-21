@@ -53,6 +53,10 @@ export class Product {
   @Field({ nullable: true })
   newArrivals: boolean;
 
+  @Column()
+  @Field({ nullable: true })
+  payOnDelivery: boolean; 
+
   @Field(() => Subcategory, { nullable: true })
   subcategory?: Subcategory;
    

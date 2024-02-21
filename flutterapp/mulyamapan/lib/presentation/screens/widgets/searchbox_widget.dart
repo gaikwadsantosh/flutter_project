@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mulyankan/data/models/product/product_model.dart';
-import 'package:mulyankan/data/models/product/product_search_input_model.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_cubit.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_state.dart';
 import 'package:mulyankan/presentation/screens/product/product_search_screen.dart';
+import 'package:mulyankan/presentation/screens/product/providers/product_search_provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SearchBoxWidget extends StatefulWidget {
-  final String hintText;
+  String hintText;
   bool showDrawer = false;
+  final ProductSearchProvider productSearchProvider;
+  final ProductsFilterSortByModel productsFilterSortByModel;
+  final TextEditingController searchBoxController;
 
-  SearchBoxWidget({super.key, required this.hintText, this.showDrawer = false});
+  SearchBoxWidget(
+      {super.key,
+      required this.hintText,
+      this.showDrawer = false,
+      required this.productSearchProvider,
+      required this.productsFilterSortByModel,
+      required this.searchBoxController});
 
   @override
   State<SearchBoxWidget> createState() => _SearchBoxWidgetState();
@@ -19,31 +29,39 @@ class SearchBoxWidget extends StatefulWidget {
 
 class _SearchBoxWidgetState extends State<SearchBoxWidget> {
   late Autocomplete<ProductModel> textAutoField;
-  final TextEditingController textEditingController = TextEditingController();
   final stt.SpeechToText speech = stt.SpeechToText();
+
+  void updateHintText(String newHintText) {
+    _SearchBoxWidgetState state =
+        context.findAncestorStateOfType<_SearchBoxWidgetState>()!;
+    if (state != null) {
+      state.setHintText(newHintText);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     print("called: initState");
-    final productCubit = BlocProvider.of<ProductCubit>(context, listen: false);
+  }
 
-    if (productCubit.state.products.isEmpty) {
-      productCubit.fetchInitialData();
-    }
+  void setHintText(String newHintText) {
+    setState(() {
+      widget.hintText = newHintText;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
       if (state is ProductLoadedState) {
-        if (state.productsSearched == null) return SizedBox.shrink();
+        if (state.products == null) return SizedBox.shrink();
         return Autocomplete<String>(
           optionsBuilder: (TextEditingValue textEditingValue) {
             if (textEditingValue.text == '') {
               return const Iterable<String>.empty();
             }
-            return state.productsSearched
+            return state.products
                 .where((product) => product.productName!
                     .toLowerCase()
                     .contains(textEditingValue.text.toLowerCase()))
@@ -51,27 +69,29 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
           },
           onSelected: (String selection) {
             print('You just selected $selection');
+
+            widget.productsFilterSortByModel.productNameSearchTerm = selection;
+            widget.productsFilterSortByModel.subCategoryName = "eCommerce";
             Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                arguments: ProductSearchInputModel(
-                    categoryName: "eCommerce", searchType: "Product List"));
+                arguments: widget.productsFilterSortByModel);
           },
           fieldViewBuilder:
-              (context, textEditingController, focusNode, onFieldSubmitted) {
+              (context, searchBoxController, focusNode, onFieldSubmitted) {
             return TextFormField(
-              controller: textEditingController,
+              controller: searchBoxController,
               focusNode: focusNode,
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 prefixIcon: widget.showDrawer
                     ? IconButton(
-                        icon: Icon(Icons.menu),
+                        icon: const Icon(Icons.menu),
                         onPressed: () {
                           Scaffold.of(context).openDrawer();
                         },
                       )
                     : null,
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.mic),
+                  icon: const Icon(Icons.mic),
                   onPressed: () {
                     _startListening();
                     print('Voice input activated!');
@@ -79,15 +99,21 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
                 ),
               ),
               onFieldSubmitted: (text) async {
+                widget.productsFilterSortByModel.productNameSearchTerm = text;
+                widget.productsFilterSortByModel.subCategoryName = "eCommerce";
                 Navigator.pushNamed(context, ProductSearchScreen.routeName,
-                    arguments: ProductSearchInputModel(
-                        categoryName: "eCommerce", searchType: "Product List"));
-
-                // Trigger lazy loading when the user submits the field
+                    arguments: widget.productsFilterSortByModel);
               },
               onChanged: (text) async {
                 if (text.length % 2 == 0) {
-                  ProductCubit().getProductByName(state, text);
+                  //--TODO--
+                  //if available items in the list < 2, call API again to get next page of data from graph.
+                  //widget.productsFilterSortByModel.productNameSearchTerm = text;
+                  //widget.productSearchProvider
+                  //    .getFilterdProducts(widget.productsFilterSortByModel);
+
+                  //final productCubit = getProductCubit(context);
+                  //productCubit.getProductByName(state, text);
                 }
                 // Dynamically update suggestions based on user input
               },
@@ -116,12 +142,11 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
           onResult: (result) {
             if (result.finalResult) {
               setState(() {
-                textEditingController.text = result.recognizedWords;
+                widget.searchBoxController.text = result.recognizedWords;
               });
             }
-            // Notify the Autocomplete widget of the changes
-            textEditingController.selection = TextSelection.fromPosition(
-              TextPosition(offset: textEditingController.text.length),
+            widget.searchBoxController.selection = TextSelection.fromPosition(
+              TextPosition(offset: widget.searchBoxController.text.length),
             );
           },
         );

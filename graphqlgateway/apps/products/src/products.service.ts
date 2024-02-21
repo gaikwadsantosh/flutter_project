@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository,  } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { MongoRepository } from 'typeorm';
+import { FindManyOptions, MongoRepository, FindOperator, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { ProductSortBy } from './entities/productsortby.entity';
 import { SortInput } from './entities/sortinput.model';
 import { SortOrder } from './entities/sortorder.enum';
@@ -25,33 +25,58 @@ export class ProductsService {
     const sortOrder = sortBy?.AscDesc || SortOrder.ASC;
     sortBy.AscDesc = sortOrder;
 
-    const where: FindConditions<Product> = {};
 
     if (filterBy) {
-      if (filterBy.subCategoryId) {
-        where.subCategoryId = filterBy.subCategoryId;
-      }
-  
-      if (filterBy.priceFrom !== undefined) {
-        where.price >= filterBy.priceFrom;
-      }
-  
-      if (filterBy.priceTo !== undefined) {
-        where.price <= filterBy.priceTo;
-      }
-  
-      if (filterBy.averageReview !== undefined) {
-        where.averageReview = filterBy.averageReview;
-      }
-  
-      if (filterBy.cashOnDelivery !== undefined) {
-        where.cashOnDelivery = filterBy.cashOnDelivery;
+      if (filterBy.priceFrom) {
+
       }
     }
-  
-    return this.productRepository.find({
-      order: { [sortBy.sortbyField]: sortBy.AscDesc },
-      where: where
+
+    const where: any = {};
+    const order: any = {};
+    // Add filter criteria dynamically
+    if (filterBy.priceFrom !== undefined) {
+      where.price = { $gte: filterBy.priceFrom };
+    }
+
+    if (filterBy.priceTo !== undefined) {
+      where.price = { ...where.price, $lte: filterBy.priceTo };
+    }
+
+    if (filterBy.subCategoryId !== undefined) {
+      where.subCategoryId = filterBy.subCategoryId;
+    }
+
+    if (filterBy.averageReview !== undefined) {
+      where.averageReview = {$gte: filterBy.averageReview};
+    }
+
+    if (filterBy.payOnDelivery !== undefined) {
+      where.cashOnDelivery = filterBy.payOnDelivery;
+    }
+
+    if (filterBy.featured !== undefined) {
+      where.featured = filterBy.featured;
+    }
+    if (filterBy.newArrivals !== undefined) {
+      where.newArrivals = filterBy.newArrivals;
+    }
+    if (filterBy.productNameSearchTerm !== undefined) {
+      where.productName = {
+        $regex: filterBy.productNameSearchTerm,
+        $options: 'i', // Case-insensitive
+      };      
+    }
+    
+    // Add sorting criteria dynamically
+    if (sortBy.sortbyField !== undefined) {
+      order[sortBy.sortbyField] = sortBy.AscDesc; // e.g., order['price'] = 'ASC' or 'DESC'
+    }
+
+    console.log("querying product");
+    return this.productRepository.find( {
+      where, 
+      order
     });
   }
 

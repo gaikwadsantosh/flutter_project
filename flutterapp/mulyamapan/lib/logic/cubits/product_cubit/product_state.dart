@@ -1,10 +1,10 @@
 import 'package:mulyankan/data/models/product/product_model.dart';
-import 'package:mulyankan/data/models/product/product_sort_by_model.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 
 abstract class ProductState {
   final List<ProductModel> products;
   final List<ProductModel> productsSearched;
-  final List<ProductsSortByModel> productSortBy;
+  final List<ProductsFilterSortByModel> productSortBy;
   ProductState(this.products, this.productsSearched, this.productSortBy);
 }
 

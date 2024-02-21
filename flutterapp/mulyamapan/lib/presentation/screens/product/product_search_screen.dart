@@ -2,13 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mulyankan/core/ui.dart';
 import 'package:mulyankan/core/utils.dart';
-import 'package:mulyankan/data/models/product/product_model.dart';
-import 'package:mulyankan/data/models/product/product_search_input_model.dart';
-import 'package:mulyankan/data/models/product/product_sort_by_model.dart';
-import 'package:mulyankan/logic/cubits/category_cubit/category_cubit.dart';
-import 'package:mulyankan/logic/cubits/category_cubit/category_state.dart';
+import 'package:mulyankan/data/models/product/products_sort_flitered_by_model.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_cubit.dart';
 import 'package:mulyankan/logic/cubits/product_cubit/product_state.dart';
 import 'package:mulyankan/presentation/screens/product/product_detail_screen.dart';
@@ -20,8 +15,13 @@ import 'package:mulyankan/presentation/screens/widgets/searchbox_widget.dart';
 
 class ProductSearchScreen extends StatefulWidget {
   static const String routeName = 'product_search';
-  final ProductSearchInputModel productSearchInputModel;
-  const ProductSearchScreen({super.key, required this.productSearchInputModel});
+  final ProductSearchProvider productSearchProvider;
+  final ProductsFilterSortByModel productsFilterSortByModel;
+  const ProductSearchScreen({
+    super.key,
+    required this.productsFilterSortByModel,
+    required this.productSearchProvider,
+  });
 
   @override
   State<ProductSearchScreen> createState() => _ProductSearchScreenState();
@@ -33,10 +33,15 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
   final event = RawKeyEvent;
   final _productListKeyboardFocusNode = FocusNode();
   String selectedSortOption = '';
+  TextEditingController searchBoxController = TextEditingController();
+  String searchBoxHintText = '';
 
   @override
   void initState() {
     super.initState();
+    widget.productSearchProvider
+        .getFilteredSortedProducts(widget.productsFilterSortByModel);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _productListKeyboardFocusNode.requestFocus();
     });
@@ -54,6 +59,15 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    searchBoxHintText =
+        "Search ${widget.productsFilterSortByModel.productNameSearchTerm ?? widget.productsFilterSortByModel.subCategoryName} ...";
+    SearchBoxWidget searchBoxWidget = SearchBoxWidget(
+      productSearchProvider: widget.productSearchProvider,
+      productsFilterSortByModel: widget.productsFilterSortByModel,
+      hintText: searchBoxHintText,
+      searchBoxController: searchBoxController,
+    );
+
     return Scaffold(
         appBar: AppBar(
             //automaticallyImplyLeading: false,
@@ -62,10 +76,7 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
               Expanded(
-                child: SearchBoxWidget(
-                  hintText:
-                      "Search ${widget.productSearchInputModel.categoryName ?? ''} ${widget.productSearchInputModel.subCategoryName ?? ''} ${widget.productSearchInputModel.searchType ?? ''} : ${widget.productSearchInputModel.fromRange ?? ''} - ${widget.productSearchInputModel.toRange ?? ''}...",
-                ),
+                child: searchBoxWidget,
               ),
             ])),
         body: Padding(
@@ -105,6 +116,16 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
                                   onFocusRequested: (focusNode) {
                                     focusNode.requestFocus();
                                   },
+                                  productSearchProvider:
+                                      widget.productSearchProvider,
+                                  productsFilterSortByModel:
+                                      widget.productsFilterSortByModel,
+                                  clearSearchBoxCallback: () {
+                                    setState(() {
+                                      searchBoxController.clear();
+                                      searchBoxHintText = "";
+                                    });
+                                  },
                                 ),
                               );
                               //),
@@ -130,22 +151,26 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
                         //return Text(state.productSortBy.length.toString());
                         return Container(
                           width: 200,
-                          child: DropdownButtonFormField<ProductsSortByModel>(
+                          child: DropdownButtonFormField<
+                              ProductsFilterSortByModel>(
                             isExpanded: false,
                             items: state.productSortBy.map((sortOption) {
-                              return DropdownMenuItem<ProductsSortByModel>(
+                              return DropdownMenuItem<
+                                  ProductsFilterSortByModel>(
                                 value: sortOption,
                                 child: Text("${sortOption.sortby}" ??
                                     ""), // Customize the text as needed
                               );
                             }).toList(),
                             onChanged: (selectedSortOption) {
+                              widget.productsFilterSortByModel.sortbyField =
+                                  selectedSortOption!.sortbyField;
+                              widget.productsFilterSortByModel.sortOrder =
+                                  selectedSortOption.sortOrder;
                               context
                                   .read<ProductSearchProvider>()
-                                  .getSortedProducts(ProductsSortByModel(
-                                      sortbyField:
-                                          selectedSortOption!.sortbyField,
-                                      sortOrder: selectedSortOption.sortOrder));
+                                  .getFilteredSortedProducts(
+                                      widget.productsFilterSortByModel);
                             },
                           ),
                         );

@@ -2,13 +2,13 @@ class SubcategoryModel {
   String id;
   String subcategoryName;
   List<BudgetRange> budgetRanges;
-  bool isSelected;
+  //bool isSelected;
 
   SubcategoryModel({
     required this.id,
     required this.subcategoryName,
     required this.budgetRanges,
-    required this.isSelected,
+    //required this.isSelected,
   });
 
   factory SubcategoryModel.fromJson(Map<String, dynamic> json) {
@@ -21,7 +21,7 @@ class SubcategoryModel {
       id: json['id'],
       subcategoryName: json['subcategoryName'],
       budgetRanges: budgetRanges,
-      isSelected: false,
+      //isSelected: false,
     );
   }
 
@@ -31,7 +31,7 @@ class SubcategoryModel {
       'subcategoryName': subcategoryName,
       'budgetRanges':
           budgetRanges.map((budgetRange) => budgetRange.toJson()).toList(),
-      'isSelected': isSelected,
+      //'isSelected': isSelected,
     };
   }
 }

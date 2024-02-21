@@ -16,7 +16,7 @@ class SubcategoryRepository {
         }
       }
     ''';
-    //print("graphQL Query :-" + query);
+    print("graphQL Query :-" + query);
     try {
       final result = await GraphQLConfig.performQuery(query);
       //print(result);
